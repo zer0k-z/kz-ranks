@@ -194,7 +194,7 @@ def get_rank(nub_records, pro_records):
 					(count_t567_p800 / count_map_t567)										* 0.03	+ \
 					(count_t567_pro / count_map_t567)										* 0.06
 
-	return ((rank_factor + pt_factor + compl_factor) / 8.38) / 0.91 * 10
+	return ((rank_factor + pt_factor + compl_factor) / 8.38) ** (1/8) / 0.91 * 10
 
 init_maps()
 ranks = []
