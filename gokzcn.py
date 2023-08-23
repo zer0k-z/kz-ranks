@@ -1,3 +1,6 @@
+# Formula majorly based on X1's gokz.cn formula
+
+# Sample players
 PLAYERS = [
 	(76561198325578948, "smieszneznaczki"),
 	(76561198118681904, "zer0.k"),
@@ -27,8 +30,12 @@ PLAYERS = [
 	(76561198205898656, "GiimPy"),
 	(76561198014491259, "nykaN"),
 	(76561198204867971, "Kuupo"),
-	(76561198078014747, "Birgit"),
-	(76561198260657129, "ReDMooN")
+	(76561198078014747, "iBUYFL0WER Burgit"),
+	(76561198260657129, "ReDMooN"),
+	(76561198004411671, "Linus"),
+	(76561198262372665, "iEatCrayons"),
+	(76561198100183392, "Ruben"),
+	(76561198057269402, "Orbit")
 ]
 MAPS = []
 MAP_TIERS = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0, '6': 0, '7': 0}
@@ -68,7 +75,7 @@ def get_map(id) -> Map:
 	for map in MAPS:
 		if map.id == id:
 			return map
-	return None
+	return None # type: ignore
 	
 def add_record_to_record_list(record_list: list, record: Record):				
 	rec: Record
@@ -81,13 +88,13 @@ def add_record_to_record_list(record_list: list, record: Record):
 		record_list.append(record)
 		
 def get_player_records(steamid64):
-		
+	# KZT only for now
 	url = f"https://kztimerglobal.com/api/v2/records/top?steamid64={steamid64}&tickrate=128&stage=0&modes_list_string=kz_timer&limit=2000"
 	
 	response = requests.get(url)
 
 	if response.status_code == 200:
-		json_data = response.json()  # Parse JSON response into a dictionary
+		json_data = response.json()
 		pro_records = []
 		nub_records = []
 			
@@ -96,6 +103,7 @@ def get_player_records(steamid64):
 			if get_map(record['map_id']) is None: continue 
 			
 			# Add run to list of runs
+			# When a tp run and a pro run both exist, the nub run is the one with more points
 			pro = record['teleports'] == 0
 			rec = Record(get_map(record['map_id']), pro, record['points'])
 
@@ -186,7 +194,7 @@ def get_rank(nub_records, pro_records):
 					(count_t567_p800 / count_map_t567)										* 0.03	+ \
 					(count_t567_pro / count_map_t567)										* 0.06
 
-	return ((rank_factor + pt_factor + compl_factor) / 8.38) ** (1/8) / 0.91 * 10
+	return ((rank_factor + pt_factor + compl_factor) / 8.38) / 0.91 * 10
 
 init_maps()
 ranks = []
@@ -194,7 +202,7 @@ for player in PLAYERS:
 	nub_records, pro_records = get_player_records(player[0])
 	rank = get_rank(nub_records, pro_records)
 	ranks.append((player[1], rank))
-	print(f"{player[0]} - {rank}")
+	print(f"{player[1]} - {rank}")
 
 sorted_ranks = sorted(ranks, key = lambda x: x[1], reverse=True)
 print("Player - Ranks:")
