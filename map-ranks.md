@@ -65,7 +65,7 @@ The burr12 distribution isn't updated as soon as a new run is inserted, it is do
 
 - TP and PRO WRs both worth 1000 points, but PRO WRs are almost always harder than TP WRs. Also related to the problem above.
 
-- High ranked runs on maps with lots of completions tend to have their distribution points extremely similar, the difference from rank-based rewards are insufficient
+- High ranked runs on maps with lots of completions tend to have their distribution points extremely similar, the difference from rank-based rewards is insufficient
 </details>
 
 <details>
