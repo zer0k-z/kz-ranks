@@ -18,9 +18,10 @@ Sum of points
 <details>
   <summary><b><font size = "+2">GameChaos's 2020 formula</font></b></summary>
 
-
+```
 multiplier = finishes^0.2 / mapcount^0.2
 skill = averagePoints * multiplier
+```
 
 ### Note:
   - Completion is king, but not as much as the sum of points method.

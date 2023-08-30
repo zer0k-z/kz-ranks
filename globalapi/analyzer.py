@@ -43,7 +43,7 @@ for filename in os.listdir(path):
             print("Times:", stats.describe(times), "Median:", statistics.median(times),)
             print("Points:", stats.describe(points), "Median:", statistics.median(points))
             
-            fig, axs = plt.subplots(1, 2, figsize=(12, 8))
+            fig, axs = plt.subplots(2, 1, figsize=(12, 8))
             
             # Fit a Burr Type XII distribution to the data
             fit_params = stats.burr12.fit(times)
@@ -64,6 +64,8 @@ for filename in os.listdir(path):
             axs[0].set_title('Fitted BurrXII PDF')
             axs[0].legend()
             
+            axs[1].hist(times, bins=100, density=True, cumulative=True, alpha=0.6, label='Times Histogram')
+
             axs[1].plot(x, fitted_dist.cdf(x), 'r', lw=1, label='Fitted BurrXII CDF')
             axs[1].set_title('Fitted BurrXII CDF')
             
