@@ -12,6 +12,7 @@ Sum of points
 
 ### Note:
   - More completions is king, unless the drop in points is extremely steep, then more WRs is king.
+  - Does not reflect skill level very well at lower levels because they usually do not have a lot of completions nor top times.
 </details>
 
 <details>
