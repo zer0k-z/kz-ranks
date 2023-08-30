@@ -1,5 +1,4 @@
 import requests
-import json
 import typing as T
 
 # Formula majorly based on X1's gokz.cn formula
