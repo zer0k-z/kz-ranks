@@ -15,7 +15,7 @@ Sum of points
 </details>
 
 <details>
-  <summary><b><font size = "+2">GC's 2020 formula</font></b></summary>
+  <summary><b><font size = "+2">GameChaos's 2020 formula</font></b></summary>
 
 
 multiplier = finishes^0.2 / mapcount^0.2
@@ -86,6 +86,6 @@ This is pretty much point average without ever being able to lower it by playing
 - 40000 max points
 
 - Top 20 maps account for 40% of total points, 50 for 72%, 100 for 92% of total points and 200 for 99.7% of total points
-  - With 1000 KZ maps, there are little reasons to complete the other 800 maps if high points are not guaranteed
+  - With 1000 KZ maps, there are little reasons to complete the other 800 maps if high points are not guaranteed, similar to GC 2020's idea
   - Players can have a high rank by being really good at easy maps even if they are completely incapable of completing any hard map
 </details>
