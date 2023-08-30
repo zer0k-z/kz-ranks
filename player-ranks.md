@@ -1,9 +1,14 @@
 (wip)
 
+# Goal
+- Make this an actual indicator of skill to some extent
+
+# Description of current systems
 <details>
   <summary><b><font size = "+2">Current system, SurfTimer, KSF</font></b></summary>
 
 Sum of points
+
 
 ### Note:
   - More completions is king, unless the drop in points is extremely steep, then more WRs is king.
