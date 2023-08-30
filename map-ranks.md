@@ -191,5 +191,5 @@ This should give new players the opportunity to gain ranks while they still need
 
 - Making pro runs using overall distribution makes more sense than current system.
 
-- Only attempts to solve one problem of the current system (PRO being separate from TP)
+- Only attempts to solve PRO run related problems of the current system
 </details>
