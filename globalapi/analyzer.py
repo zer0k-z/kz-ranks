@@ -91,11 +91,11 @@ for filename in os.listdir(path):
                 
             points = np.array([record['points'] for record in data])
             times = np.array([(record['time']) for record in data])
-            
+            print("Mean / Median:", times.mean(), np.median(times))
             print("Top 5 times:", data[0]['time'], data[1]['time'], data[2]['time'], data[3]['time'] , data[4]['time'])
             print("Top 1% / 10% / 25% / 50% / 75%:", np.percentile(times, 1), np.percentile(times, 10), np.percentile(times, 25), np.percentile(times, 50), np.percentile(times, 75))
             print("Bottom 5 times:", data[-1]['time'], data[-2]['time'], data[-3]['time'], data[-4]['time'] , data[-5]['time'])
-            fig, axs = plt.subplots(4, 2, figsize=(16, 8))
+            fig, axs = plt.subplots(3, 2, figsize=(12, 8))
             
             # Fit a Burr Type XII distribution to the data
             burr12_params = stats.burr12.fit(times)
@@ -104,12 +104,6 @@ for filename in os.listdir(path):
             burr12_dist = stats.burr12(*burr12_params)
 
             print(f"Burr12 params: {burr12_params} | Mean {burr12_dist.mean()} | Median {burr12_dist.median()} | WR CDF: {burr12_dist.cdf(data[0]['time'])} | Last place: {burr12_dist.cdf(data[-1]['time'])}")
-            
-            
-            lognorm_params = stats.lognorm.fit(times)
-            lognorm_dist = stats.lognorm(*lognorm_params)
-
-            print(f"Lognorm params: {lognorm_params} | Mean {lognorm_dist.mean()} | Median {lognorm_dist.median()} | WR CDF: {lognorm_dist.cdf(data[0]['time'])} | Last place: {lognorm_dist.cdf(data[-1]['time'])}")
             
             norminvgauss_params = stats.norminvgauss.fit(times)
             norminvgauss_dist = stats.norminvgauss(*norminvgauss_params)
@@ -124,9 +118,8 @@ for filename in os.listdir(path):
             axs[0,0].hist(times, bins=200, density=True, alpha=0.6, label='Times Histogram', range = [0,np.median(times)*4])
 
             # Create a curve based on the fitted distribution
-            x = np.linspace(0, np.median(times)*4, 200)
+            x = np.linspace(0, times.max(), 200)
             
-            axs[0,0].plot(x, lognorm_dist.pdf(x), 'g', lw=1, label='Fitted Lognorm PDF')
             axs[0,0].plot(x, burr12_dist.pdf(x), 'r', lw=1, label='Fitted BurrXII PDF')
             axs[0,0].plot(x, norminvgauss_dist.pdf(x), 'y', lw=1, label='Fitted norminvgauss PDF')
             
@@ -134,7 +127,7 @@ for filename in os.listdir(path):
 
             axs[0,0].set_xlabel('Time')
             axs[0,0].set_ylabel('Density')
-            axs[0,0].set_title('Times PD')
+            axs[0,0].set_title('Times')
             axs[0,0].legend()
             
             axs[0,1].hist(times, bins=300, density=True, cumulative=True, alpha=0.6, label='Times Histogram', range = [0,np.mean(times)*4])
@@ -143,33 +136,24 @@ for filename in os.listdir(path):
             # for dist in distributions:
             #     axs[0,1].plot(x, dist[3](*dist[1]).cdf(x), lw=1, label=dist[0])
             axs[0,1].plot(x, burr12_dist.cdf(x), 'r', lw=1, label='Fitted BurrXII CDF')
-            axs[0,1].plot(x, lognorm_dist.cdf(x), 'g', lw=1, label='Fitted Lognorm CDF')
             axs[0,1].plot(x, norminvgauss_dist.cdf(x), 'y', lw=1, label='Fitted norminvgauss CDF')
             axs[0,1].set_title('Times CD')
             bins_count = 80
             axs[1,0].hist(points, bins=bins_count, density=True, alpha=0.6, label='Points Histogram', color='red', range=[0, 800])
-            axs[1,0].set_title('Points PD')
+            axs[1,0].set_title('Burr12 Points PD')
             axs[1,1].hist(points, bins=bins_count, density=True, cumulative=True, alpha=0.6, label='Points Histogram', color='red', range=[0, 800])
-            axs[1,1].set_title('Points CD')
-            
-            new_points = 800 * (lognorm_dist.sf(times)) / lognorm_dist.sf(times[0])
-            axs[2,0].hist(new_points, bins=bins_count, density=True, alpha=0.6, label='Experimental Points Histogram', color='green', range=[0, 800])
-            axs[2,0].set_title('Lognorm Points PD')
-            axs[2,1].hist(new_points, bins=bins_count, density=True, cumulative=True, alpha=0.6, label='Experimental Points Histogram', color='green', range=[0, 800])
-            axs[2,1].set_title('Lognorm Points CD')
+            axs[1,1].set_title('Burr12 Points CD')
 
             new_points = 800 * (norminvgauss_dist.sf(times)) / norminvgauss_dist.sf(times[0])
-            axs[3,0].hist(new_points, bins=bins_count, density=True, alpha=0.6, label='Experimental Points Histogram', color='y', range=[0, 800])
-            axs[3,0].set_title('Norminvgauss Points PD')
-            axs[3,1].hist(new_points, bins=bins_count, density=True, cumulative=True, alpha=0.6, label='Experimental Points Histogram', color='y', range=[0, 800])
-            axs[3,1].set_title('Norminvgauss Points CD')
+            axs[2,0].hist(new_points, bins=bins_count, density=True, alpha=0.6, label='Experimental Points Histogram', color='y', range=[0, 800])
+            axs[2,0].set_title('Norminvgauss Points PD')
+            axs[2,1].hist(new_points, bins=bins_count, density=True, cumulative=True, alpha=0.6, label='Experimental Points Histogram', color='y', range=[0, 800])
+            axs[2,1].set_title('Norminvgauss Points CD')
             
-            axs[2,0].sharey(axs[1,0])
-            axs[3,0].sharey(axs[1,0])
             axs[2,1].sharey(axs[1,1])
-            axs[3,1].sharey(axs[1,1])
+            axs[2,0].sharey(axs[1,0])
             
-            for i in range(1,4):
+            for i in range(1,3):
                 for j in range(0,2):
                     axs[i,j].set_xlabel('Points')
                 axs[i,0].set_ylabel('Density')

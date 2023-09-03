@@ -11,7 +11,7 @@
 
 - Incentivize PRO runs and get rid of TP only leaderboards
 
-# Description of point systems
+# Description of existing point systems
 
 <details>
   <summary><b><font size = "+2">Current System</font></b></summary>
@@ -192,4 +192,41 @@ This should give new players the opportunity to gain ranks while they still need
 - Making pro runs using overall distribution makes more sense than current system.
 
 - Only attempts to solve PRO run related problems of the current system
+</details>
+
+# Proposal
+
+<details>
+  <summary><b><font size = "+2">Changes</font></b></summary>
+
+- Replace the distribution used by the rank calculation from BurrXII to Normal Inverse Gaussian to better reflect the distribution of times in maps. The new distribution perform slightly better in most cases and significantly better in various extreme cases.
+Here you can see some examples of the new distribution (yellow) vs the current distribution (red). The points shown in the graphs only contain the 800 points awarded from the distribution.
+<details>
+  <summary>bkz_chillhop_go (PRO)</summary>
+
+  Easy and short map, very high amount of completions, most times are very close to the average. 
+
+  ![](images/bkz_chillhop_go-PRO.png)
+</details>
+<details>
+  <summary>kz_spacemario_h (TP)</summary>
+
+  One of the most played T6 maps. Medium length with relatively plenty of completions with very spreaded out times.
+
+  ![](images/kz_spacemario_h-TP.png)
+</details>
+<details>
+  <summary>kz_bhop_badges3 (TP)</summary>
+
+  Long map, decent amount of completions with decently spreaded out times.
+
+  ![](images/kz_bhop_badges3-TP.png)
+</details>
+<details>
+  <summary>kz_gy_agitation (TP)</summary>
+
+  The second longest map in KZ, with a lot of completions and decently spreaded out times.
+
+  ![](images/kz_gy_agitation-TP.png)
+</details>
 </details>
