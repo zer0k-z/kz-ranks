@@ -11,6 +11,8 @@
 
 - Incentivize PRO runs and get rid of TP only leaderboards
 
+<hr style="border:2px solid gray">
+
 # Description of existing point systems
 
 <details>
@@ -53,6 +55,10 @@ The burr12 distribution isn't updated as soon as a new run is inserted, it is do
 - If a course **does not have enough completions**, the points reward will be `1000 / (# completions + 1)`, with exception of the WR holder always having 1000 points. 
 
 ### Note:
+- Distribution-based point system serves two goals:
+  - Rewards players who made improvements in time, but not necessarily in ranks. Since points are supposed to represent player's skill, a time improvement should be an indicator that their skill has improved, and therefore they should be rewarded accordingly.
+  - Saves resources by not having to compare times to the entire leaderboard at once. (TODO: Does this actually make sense if rank-based points are also a component of total points?)
+
 - Rewards on map with no distribution are problematic, as being #2 on a extremely hard map with only 2 completions gives you a whooping 333 points.
 
 - Also falls apart for some maps where `c < k`, results in L shaped curve which does not correctly reflect times distribution. This shifts the average points to the positive because of the `top_scale` multiplier being significant.
@@ -194,39 +200,74 @@ This should give new players the opportunity to gain ranks while they still need
 - Only attempts to solve PRO run related problems of the current system
 </details>
 
-# Proposal
+<hr style="border:2px solid gray">
 
+# Proposal
 <details>
-  <summary><b><font size = "+2">Changes</font></b></summary>
+  <summary><b>
+    <font size = "+2">Changes</font>
+  </b></summary>	
+  <details>
+    <summary><b><font size = "+1">Summary</font></b></summary>
+
+- Courses now give up to 10000 points instead of 1000.
+    
+- Improve the distribution estimation to be more representative of the real leaderboard.
+    
+- Each course now have a Standard/Pro leaderboard instead of TP/Pro leaderboard. Difficulty (tier) is also now split for Standard and Pro courses.
+    
+- Increase the point gap between high-ranked players.
+    
+- Add 1 playable difficulty/tier (to a total of 8 playable tiers), and two special tiers, an "humanly unfeasible" tier (9) and a "physically impossible" tier (10). (The special tiers are not involved in map point calculation)
+    
+- Tweak the point formula to take Pro runs and map length + difficulty into account.
+  </details>
+  
+<details>
+<summary><b><font size = "+1">Details</font></b></summary>
+
+- Replaces TP and PRO leaderboard with Standard (name TBD) and PRO leaderboards. Pro leaderboard contains player's PB that was achieved without using plugin's teleport feature. Standard leaderboard contains the player's fastest run, regardless of the run using teleports or not.
 
 - Replace the distribution used by the rank calculation from BurrXII to Normal Inverse Gaussian to better reflect the distribution of times in maps. The new distribution perform slightly better in most cases and significantly better in various extreme cases.
 Here you can see some examples of the new distribution (yellow) vs the current distribution (red). The points shown in the graphs only contain the 800 points awarded from the distribution.
-<details>
-  <summary>bkz_chillhop_go (PRO)</summary>
+  <details>
+    <summary>bkz_chillhop_go (PRO)</summary>
 
-  Easy and short map, very high amount of completions, most times are very close to the average. 
+    Easy and short map, very high amount of completions, most times are very close to the average. 
 
-  ![](images/bkz_chillhop_go-PRO.png)
+    ![](images/bkz_chillhop_go-PRO.png)
+  </details>
+  <details>
+    <summary>kz_spacemario_h (TP)</summary>
+
+    One of the most played T6 maps. Medium length with relatively plenty of completions with very spreaded out times.
+
+    ![](images/kz_spacemario_h-TP.png)
+  </details>
+  <details>
+    <summary>kz_bhop_badges3 (TP)</summary>
+
+    Long map, decent amount of completions with decently spreaded out times.
+
+    ![](images/kz_bhop_badges3-TP.png)
+  </details>
+  <details>
+    <summary>kz_gy_agitation (TP)</summary>
+
+    The second longest map in KZ, with a lot of completions and decently spreaded out times.
+
+    ![](images/kz_gy_agitation-TP.png)
+
+  </details>
+<lb></lb>
+- The distribution calculation now attempts to eliminate extreme slower outliers on courses having difficulty at tier 3 and below for higher estimation quality.
+  - TODO: How?
+
+<lb></lb>
+- A minimum amount of points are rewarded for course completion, depending on tiers. More points are rewarded for tier 1-4 maps with long average time, but they will not exceed the minimum point reward for the next tier. 
+  - TODO: How?
+  
+<lb></lb>
+- Pro runs apply a 
 </details>
-<details>
-  <summary>kz_spacemario_h (TP)</summary>
 
-  One of the most played T6 maps. Medium length with relatively plenty of completions with very spreaded out times.
-
-  ![](images/kz_spacemario_h-TP.png)
-</details>
-<details>
-  <summary>kz_bhop_badges3 (TP)</summary>
-
-  Long map, decent amount of completions with decently spreaded out times.
-
-  ![](images/kz_bhop_badges3-TP.png)
-</details>
-<details>
-  <summary>kz_gy_agitation (TP)</summary>
-
-  The second longest map in KZ, with a lot of completions and decently spreaded out times.
-
-  ![](images/kz_gy_agitation-TP.png)
-</details>
-</details>

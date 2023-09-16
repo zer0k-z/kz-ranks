@@ -1,2 +1,4 @@
 .vscode/
 graphs/
+test*
+__pycache__/

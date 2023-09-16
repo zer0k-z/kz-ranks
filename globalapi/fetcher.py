@@ -2,13 +2,13 @@ import requests
 import os
 import json
 MAPS_TP = [
-    "kz_kiwipsychosis",
-    "kz_portalclimb",
+    "kz_dakow",
+    "kz_redline"
 ]
 
 MAPS_PRO = [
-    "kz_slide_isnt_kz",
-    "kz_burnished"
+    "kzpro_gull_pidr_reborn",
+    "kz_continuum"
 ]
 def get_player_records(map_name, pro):
     print(f"Fetching {map_name}")

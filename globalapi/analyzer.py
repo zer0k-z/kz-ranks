@@ -109,11 +109,11 @@ for filename in os.listdir(path):
             norminvgauss_dist = stats.norminvgauss(*norminvgauss_params)
 
             print(f"Norminvgauss params: {norminvgauss_params} | Mean {norminvgauss_dist.mean()} | Median {norminvgauss_dist.median()} | WR CDF: {norminvgauss_dist.cdf(data[0]['time'])} | Last place: {norminvgauss_dist.cdf(data[-1]['time'])}")
-            # print(f"Estimating best distributions...")
-            # distributions = best_fit_distribution(times)
-            # for dist in distributions:
-            #     print(dist[0], dist[2])
-            #     all_dists.append(dist[0])
+            print(f"Estimating best distributions...")
+            distributions = best_fit_distribution(times)
+            for dist in distributions:
+                print(dist[0], dist[2])
+                all_dists.append(dist[0])
             # Create a histogram of the data
             axs[0,0].hist(times, bins=200, density=True, alpha=0.6, label='Times Histogram', range = [0,np.median(times)*4])
 
@@ -166,4 +166,4 @@ for filename in os.listdir(path):
                 os.makedirs(output_path)
             plt.savefig(f"{output_path}/{filename.removesuffix('.json')}.png", dpi = 500)
 
-# print_top_common_occurrences(all_dists, 120)
+print_top_common_occurrences(all_dists, 120)
