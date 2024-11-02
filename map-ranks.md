@@ -268,6 +268,6 @@ Here you can see some examples of the new distribution (yellow) vs the current d
   - TODO: How?
   
 <lb></lb>
-- Pro runs apply a 
+- Pro runs apply a 10% bonus on the distribution points. For example, if a run is on a tier 7 course (8000 base points), the pro run gets an extra 200 points (out of 2000). The rest of 1800 will be calculated using the distribution formula.
 </details>
 
